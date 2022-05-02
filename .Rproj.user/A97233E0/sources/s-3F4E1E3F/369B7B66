@@ -1,9 +1,9 @@
 {
     "id": "369B7B66",
-    "path": "~/Documents/Post-Doc/Data Science/R/BookDown/IslamicHistory900-1250/_bookdown.yml",
+    "path": "~/Documents/Post-Doc/Data Science/DH Hamburg with Maxim Romanov/GitPages/medievalislamicworld/_bookdown.yml",
     "project_path": "_bookdown.yml",
     "type": "yaml",
-    "hash": "0",
+    "hash": "64651567",
     "contents": "",
     "dirty": false,
     "created": 1651495178084.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "0,0",
+        "cursorPosition": "3,19",
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1651502595,
+    "lastKnownWriteTime": 1651528056,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1651502595,
+    "last_content_update": 1651528056243,
     "read_only": false,
     "read_only_alternatives": []
 }
