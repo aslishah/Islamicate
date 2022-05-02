@@ -1,13 +1,3 @@
-course-description
-intended-learning-outcomes
-lectures
-seminars
-assessment
-resources-and-reading-materials
-reference-works
-textbooks
-surveys
-historiography
 introduction
 the-rise-of-islam-in-late-antiquity
 muhammad-and-his-successors
@@ -20,4 +10,3 @@ al-andalus-conquest-to-the-fall-of-the-umayyad-caliphate
 from-competing-caliphates-to-the-rise-of-non-arab-dynasties
 crusaders
 the-mongols-and-the-new-world-order
-examinations
