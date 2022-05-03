@@ -1,6 +1,4 @@
 introduction
-slide-one
-slide-2
 the-rise-of-islam-in-late-antiquity
 muhammad-and-his-successors
 the-umayyads-an-arab-islamic-monarchy
@@ -10,5 +8,14 @@ shiʿism-and-shiʿi-communities
 the-fatimids-and-the-islamic-west
 al-andalus-conquest-to-the-fall-of-the-umayyad-caliphate
 from-competing-caliphates-to-the-rise-of-non-arab-dynasties
+muslim-learning-texts-and-the-formation-of-the-islamic-world-900-1250
+objectives
+further-points-for-discussion
+slide-one
+slide-2
+the-rise-of-the-arabic-book
 crusaders
 the-mongols-and-the-new-world-order
+url-your-book-url-like-httpsbookdown.orgyihuibookdown
+military-states-seljuqs-ayyubids-crusaders
+mamluk-sultanate-of-cairo-and-the-timurids
