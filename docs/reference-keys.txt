@@ -1,4 +1,6 @@
 introduction
+slide-one
+slide-2
 the-rise-of-islam-in-late-antiquity
 muhammad-and-his-successors
 the-umayyads-an-arab-islamic-monarchy
