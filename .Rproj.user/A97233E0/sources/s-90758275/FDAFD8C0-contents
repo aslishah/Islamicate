@@ -1,0 +1,45 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+```{r}
+files <- list.files(path="./data", pattern="*.yml", full.names=TRUE, recursive=FALSE)
+lapply(files, function(x) {
+    t <- read.table(x, header=TRUE) # load file
+    # apply function
+    out <- function(t)
+    # write to file
+    write.table(out, "./data/new", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+})
+
+getwd()
+print(files)
+```
+print(list)
+
+```{r}
+
+file_list = list.files(pattern="*.yml")
+data_list <- vector("list", "length" = length(file.list))
+
+for (i in seq_along(file_list)) {
+    filename = file_list[[i]]
+
+    # Read data in
+    df <- read.csv(filename, header = FALSE, col.names = c("Name", "Gender", "Count"))
+
+    # Extract year from filename
+    year = gsub("yob", "", filename)
+    df[["Filename"]] = year
+
+    # Add year to data_list
+    data_list[[i]] <- df
+}
+
+babynames <- do.call(rbind, data_list)
+```

@@ -1,0 +1,10 @@
+
+# Doing OCR with R. 1. Install the packages below. 
+library(pdftools)
+library(tidyverse)
+library(tesseract)
+library(readr)
+
+text <- tesseract::ocr(".\morris", engine = tesseract("eng"))
+readr::write_lines(text, str_replace(pathToPNGfile, ".png", ".txt"))
+

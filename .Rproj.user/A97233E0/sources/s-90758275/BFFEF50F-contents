@@ -1,0 +1,76 @@
+---
+title: "Experiment with Bosker Data"
+author: "Completed by Qurboniev"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Cmd+Shift+Enter*. 
+
+``` {r}
+library(tidyverse)
+
+year <- seq(800, 1800, 100)
+period <- c("Middle Ages", "Middle Ages", "Middle Ages", "Middle Ages", "Middle Ages",
+             "Middle Ages", "Middle Ages", "Modern Times", "Modern Times", "Modern Times",
+             "Modern Times")
+periods <- tibble(year, period)
+
+periods %>%
+  mutate(periodsNovo = ifelse(year >= 800 & year < 900, "9th century",
+                          ifelse(year >= 900 & year < 1000, "10th century",
+                                 ifelse(year >= 1000 & year < 1100, "11th century", "eleventh-nineteenth centuries"))))
+
+``` 
+
+
+``` {r} 
+
+
+#for tibble we must construct vectors of simialr size, so the sequance must correspond top the period vector.
+# This can get complicated with long seq such as years, in which case we get rid of the period vector and use conditional
+
+long_years <- seq(800, 1800, 1)
+periodsNew <- tibble(long_years)
+periodsNew %>%
+  mutate(periodsNewcolumn= ifelse(long_years >= 800 & long_years < 900, "9th century",
+                          ifelse(long_years >= 900 & long_years < 1000, "10th century",
+                                 ifelse(long_years >= 1000 & long_years < 1100, "11th century", "eleventh-nineteenth centuries"))))
+
+
+
+```
+
+
+
+# 6.4.1 SECTION I.
+Please, provide your answers (2-3 sentences) to the following questions:
+
+## Can you figure which file contains data?
+
+
+In which format is data?
+How can we load it into R? (Describe and provide working R code)
+What is the chronological extent of this data?
+[easy-ish] What periods can it be divided into? How can we do that?
+How can we introduce the following categories into this data:
+[easy] North Africa and Europe?
+[a bit more complicated] the Ottoman Empire?
+[a tad tricky] Christiandom and Islamdom?
+6.4.2 SECTION II
+Please, provide your answers as working R code and a couple of sentences to describe how you approach (2-3 sentences) the following problems:
+
+What is the chronological extent of this data?
+[easy-ish] What periods can it be divided into? How can we do that?
+Can you generate a cumulative graph of population over time, divided into these periods? (Hint: there should be one line for one period and another for another, etc.)
+How can we introduce the following categories into this data:
+[easy] North Africa and Europe?
+Construct comparative graphs of population in North Africa and Europe (similar to what you did with the Morris dataset). Here you will need to sum up population!
+[a bit more complicated] the Ottoman Empire?
+When did the Empire had the largest number of cities (based on the data set)?
+When was its population at the highest?
+[a tad tricky] Christiandom and Islamdom?
+What are the largest cities of Islamdom for each reported period?
+What are the largest western cities of Islamdom between 1000 and 1500 CE?
+

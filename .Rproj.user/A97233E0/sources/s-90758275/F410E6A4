@@ -1,0 +1,30 @@
+{
+    "id": "F410E6A4",
+    "path": "~/Documents/Post-Doc/Data Science/R/R Course with MaximRomanov/05_worksheets_ggplot2-introduction-MGR-mod.Rmd",
+    "project_path": null,
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1651831486683.0,
+    "source_on_save": false,
+    "relative_order": 10,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "last_setup_crc32": "",
+        "cursorPosition": "354,59",
+        "scrollLine": "0",
+        "rmdVisualMode": "false",
+        "rmdVisualCollapsedChunks": "",
+        "chunk_output_type": "inline"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1659545940,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1659545940164,
+    "read_only": false,
+    "read_only_alternatives": []
+}

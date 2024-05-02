@@ -1,8 +1,8 @@
 h1:course-description Course description
-h2:intended-learning-outcomes Intended learning outcomes
-h2:lectures Lectures
-h2:seminars Seminars
-h2:assessment Assessment
+h3:intended-learning-outcomes Intended learning outcomes
+h3:lectures Lectures
+h3:seminars Seminars
+h3:assessment Assessment
 h2:resources-and-reading-materials Resources and reading materials
 h3:reference-works Reference Works
 h3:textbooks Textbooks

@@ -1,0 +1,138 @@
+---
+title: "RichmondDispatch_Analysis"
+author: "asli"
+date: '2022-06-07'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Loading the files 
+
+```{r}
+#install.packages("tidyverse", "readr", "stringr")
+#install.packages("tidytext", "wordcloud", "RColorBrewer"", "quanteda", "readtext")
+
+# General ones 
+library(tidyverse)
+library(readr)
+library("RColorBrewer")
+
+# Text Analysis Specific
+library(stringr)
+library(tidytext)
+library(wordcloud)
+library(quanteda)
+library(readtext)
+``` 
+
+
+``` {r}
+pathToFiles = "/Users/aslisho/Documents/Post-Doc/Data Science/R/R Course with MaximRomanov/TextAnalysis/"
+
+d1862 <- read.delim(paste0(pathToFiles, "dispatch_1862.tsv"), encoding="UTF-8", header=TRUE, quote="")
+sw1 <- scan(paste0(pathToFiles, "sw1.md"), what="character", sep="\n")
+#d1862
+#sw1
+
+#This initially didn't work but finally worked after I have restarted R and the ccomputer. Now I can load thwe files using paste0
+```
+
+```{r}
+
+# Alternative solution for loading the dispatch file:
+
+#dispatch <- read.csv(file = "/Users/aslisho/Documents/Post-Doc/Data Science/R/R Course with MaximRomanov/TextAnalysis/dispatch_1862.tsv", sep = '\t', header = TRUE)
+#dispatch
+#starWars <- scan("sw1.md", what="character", sep="\n")
+#sw1
+```
+
+```{r}
+clean_up_text = function(x) {
+  x %>% 
+    str_to_lower %>% # make text lower case
+    str_replace_all("[^[:alnum:]]", " ") %>% # remove non-alphanumeric symbols
+    str_replace_all("\\s+", " ") # collapse multiple spaces
+}
+
+text = "This is a sentence with punctuation, which mentions Hamburg, a city in Germany."
+clean_up_text(text)
+
+```
+# 1. Subsetting the data by types
+``` {r}
+library(tidytext)
+
+pathToFiles = "/Users/aslisho/Documents/Post-Doc/Data Science/R/R Course with MaximRomanov/TextAnalysis/"
+
+d1862 <- read.delim(paste0(pathToFiles, "dispatch_1862.tsv"), encoding="UTF-8", header=TRUE, quote="")
+sw1 <- scan(paste0(pathToFiles, "sw1.md"), what="character", sep="\n")
+#d1862
+knitr::kable(head(d1862))
+
+d1862 %>%
+  count(type, sort=T)
+
+death_d1862 <- d1862 %>%
+  filter(type=="death" | type == "died")
+death_d1862
+
+articles_d1862 <- d1862 %>%
+  filter(type == "article"| type == "acticle"| type == "aritcle"| type == "artcle"| type == "articl" | type == "articler"|type == "aticle")
+articles_d1862
+
+commercial_d1862 <- d1862 %>%
+  filter(type == "ad-blank" | type == "orders"| type == "advert" |type == "adverts" | type == "ordered" |type == "oders" )
+commercial_d1862
+
+notices_d1862 <- d1862 %>%
+  filter(type == "married"| type == "married,"| type == "marry"| type == "notice"|type ==  "runaway"|type == "ranaway"| type == "Wanted"|type == "printrun"|type == "25")
+
+literary_d1862 <-d1862 %>%
+  filter(type =="poem"|type == "letter"|type == "entry"|type == "oped"|type == "simple")
+literary_d1862
+
+```
+# 2. @ What are the pain problems of this dataset? 
+Main problem of this dataset: it seems like there are many typos in the data types column. I have created some major categories
+
+# 3. Creating a tidy dataset
+
+```{r} 
+test_set <- death_d1862
+
+test_set_tidy <- test_set %>%
+  mutate(item_number = cumsum(str_detect(text, regex("^", ignore_case = TRUE)))) %>%
+  select(-type) %>%
+  unnest_tokens(word, text) %>%
+  mutate(word_number = row_number())
+
+head(test_set_tidy)
+#test_set_tidy #(154,587 rows)
+
+```
+
+```{r}
+data("stop_words")
+
+test_set_tidy_clean <- test_set_tidy %>%
+  anti_join(stop_words, by="word")
+
+head(test_set_tidy_clean)
+
+library(knitr)
+kable(d1862)
+
+```
+
+```{r}
+
+test_set_tidy %>%
+  count(word, sort = TRUE) %>%
+  head(15)
+
+```
+

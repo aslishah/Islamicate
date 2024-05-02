@@ -1,6 +1,6 @@
 delete_merged_file: true
 language:
   ui:
-    chapter_name: ""
+    chapter_name: "Week "
 
 output_dir: "docs"

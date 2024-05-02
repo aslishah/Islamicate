@@ -1,0 +1,227 @@
+---
+title: '8 Text Analysis II: Distances, Keywords, Summarization'
+author: "asli"
+date: '2022-06-10'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Loading the files 
+
+```{r}
+#install.packages("tidyverse", "readr", "stringr")
+#install.packages("tidytext", "wordcloud", "RColorBrewer"", "quanteda", "readtext")
+
+# General ones 
+library(tidyverse)
+library(readr)
+library("RColorBrewer")
+library(dplyr)
+library(text2vec)
+
+# Text Analysis Specific
+library(stringr)
+library(tidytext)
+library(wordcloud)
+library(quanteda)
+library(readtext)
+library(igraph)
+library(ggraph) # built on top of igraph to make graph from dataframe?
+``` 
+# load the dispatch
+``` {r}
+pathToFiles = "/Users/aslisho/Documents/Post-Doc/Data Science/R/R Course with MaximRomanov/TextAnalysis/"
+
+d1862 <- read.delim(paste0(pathToFiles, "dispatch_1862.tsv"), encoding="UTF-8", header=TRUE, quote="")
+
+#d1862
+
+```
+
+```{r}
+
+prep_fun = function(x) {
+  x %>% 
+    str_to_lower %>% # make text lower case
+    str_replace_all("[^[:alnum:]]", " ") %>% # remove non-alphanumeric symbols
+    str_replace_all("\\s+", " ") # collapse multiple spaces
+  }
+
+```
+
+```{r}
+
+sentences = c("The Caliph arrived to Baghdad from Mecca.",
+              "The Caliph arrived to Mecca from Baghdad.",
+              "The Caliph arrived from Mecca to Baghdad. The Caliph arrived from Baghdad to Mecca.",
+              "The Caliph arrived to Baghdad from Mecca. The Caliph arrived. The Caliph arrived. The Caliph arrived.",
+              "The Caliph arrived to Baghdad from Mecca. The Caliph returned to Mecca from Baghdad.",
+              "The Caliph arrived from Mecca to Baghdad, and then returned to Mecca.",
+              "The vezier arrived from Isbahan to Mecca. The Caliph, Caliph, Caliph returned from Mecca to Baghdad Baghdad Baghdad.")
+
+testDF <- data.frame("ID" = as.character(1:length(sentences)), "TEXT" = sentences)
+
+testDF$TEXT <- prep_fun(testDF$TEXT)
+
+
+```
+
+```{r}
+
+# shared vector space
+it = itoken(as.vector(testDF$TEXT))
+v = create_vocabulary(it)
+vectorizer = vocab_vectorizer(v)
+
+# creating matrices
+sparseMatrix = create_dtm(it, vectorizer)
+denseMatrix = as.matrix(sparseMatrix)
+
+```
+
+```{r}
+#Let's create our distnance matrixes 
+denseMatrix
+testDF$TEXT
+```
+
+```{r} 
+
+#Jaccard similarity (for conparing two sents of docs one must provide 2 DTM, as described here http://text2vec.org/similarity.html)
+
+
+jaccardMatrix <- sim2(sparseMatrix, method ="jaccard", norm= "none")
+
+print("JACCARD: 1 is full match"); jaccardMatrix
+
+```
+
+```{r}
+# Coisine distance
+
+cosineMatrix <- sim2(sparseMatrix, method = "cosine", norm = "12") #not sure what happened i doesn't work now
+print("COSINE: 1 is full match"); cosineMatrix
+
+```
+```{r}
+# Euclidian distance
+euclideanMatrix <- dist2(denseMatrix, method = "euclidean")
+print("EUCLIDEAN: 0 is full match"); euclideanMatrix
+```
+
+# Running on Dispatch 
+
+``` {r}
+
+sample_d1862 <- d1862 %>%
+  filter(type=="advert")
+
+sample_d1862$text <- prep_fun(sample_d1862$text) #function that prepares the text for analysis
+
+# shared vector space
+it = itoken(as.vector(sample_d1862$text))
+v = create_vocabulary(it) %>%
+  prune_vocabulary(term_count_min = 3) # 
+vectorizer = vocab_vectorizer(v)
+```
+
+```{r}
+dtmD = create_dtm(it, vectorizer)
+jaccardMatrix = sim2(dtmD, dtmD, method = "jaccard", norm = "none")
+jaccardMatrix@Dimnames[[1]] <- as.vector(sample_d1862$id)
+jaccardMatrix@Dimnames[[2]] <- as.vector(sample_d1862$id)
+
+jaccardMatrix[1:4, 1:2]
+```
+```{r}
+jaccardMatrix <- as.matrix(jaccardMatrix)
+
+library(igraph)
+library(dplyr)
+jaccardNW <- graph.adjacency(jaccardMatrix, mode="undirected", weighted=TRUE)
+jaccardNW <- simplify(jaccardNW)
+jaccard_sim_df <- as_data_frame(jaccardNW, what="edges") #still some problem here, see error message
+
+colnames(jaccard_sim_df) <- c("text1", "text2", "jaccardSimilarity")
+
+jaccard_sim_df <- jaccard_sim_df %>%
+  arrange(desc(jaccardSimilarity))
+
+head(jaccard_sim_df, 10)
+
+```
+# Converting to tidy format 
+```{r}
+t_jaccard_sim_df_subset <- jaccard_sim_df %>%
+  filter(jaccardSimilarity > 0.49) %>%
+  filter(jaccardSimilarity <= 0.9) %>%
+  arrange(desc(jaccardSimilarity), .by_group=T)
+
+head(t_jaccard_sim_df_subset, 10)
+```
+
+# Checking the texts
+```{r}
+
+example1 <- d1862 %>%
+  filter(id=="1862-04-07_advert_175")
+#example1$text
+
+example2 <- d1862 %>%
+  filter(id=="1862-04-05_advert_38")
+#example2$text
+``` 
+# Distances between two sample adverts from the Dispatch
+```{r}
+
+# Euclidian distance
+
+# shared vector space
+it1 = itoken(as.vector(example1$text))
+v1 = create_vocabulary(it1)
+vectorizer = vocab_vectorizer(v1)
+
+it2 = itoken(as.vector(example2$text))
+v2 = create_vocabulary(it2)
+vectorizer = vocab_vectorizer(v2)
+
+
+
+# creating matrices of example1
+sparseMatrix_example1 = create_dtm(it1, vectorizer)
+denseMatrix_example1 = as.matrix(sparseMatrix_example1)
+sparseMatrix_example1
+
+
+# creating matrice of example2
+sparseMatrix_example2 = create_dtm(it2, vectorizer)
+denseMatrix_example2 = as.matrix(sparseMatrix_example2)
+#denseMatrix_example2
+#sparseMatrix_example2 
+```
+
+```{r}
+
+euclideanMatrix_Dispatch <- dist2(denseMatrix_example1, denseMatrix_example2, method = "euclidean")
+print("EUCLIDEAN: 0 is full match"); euclideanMatrix_Dispatch
+
+```
+
+```{r}
+
+sample_d1862 <- d1862 %>%
+  filter(type=="advert")
+
+sample_d1862$text <- prep_fun(sample_d1862$text)
+
+# shared vector space
+it = itoken(as.vector(sample_d1862$text))
+v = create_vocabulary(it) %>%
+  prune_vocabulary(term_count_min = 3) # 
+vectorizer = vocab_vectorizer(v)
+dtmD = create_dtm(it, vectorizer)
+jaccardMatrix = sim2(dtmD, dtmD, method = "jaccard", norm = "none")
+``` 

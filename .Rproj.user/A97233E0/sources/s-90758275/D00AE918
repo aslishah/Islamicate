@@ -1,0 +1,29 @@
+{
+    "id": "D00AE918",
+    "path": "~/Documents/Post-Doc/Data Science/R/R Course with MaximRomanov/03_worksheets_data-manipulation-introduction.Rmd",
+    "project_path": null,
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1653393898490.0,
+    "source_on_save": false,
+    "relative_order": 13,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "43,0",
+        "scrollLine": "0",
+        "rmdVisualMode": "false",
+        "rmdVisualCollapsedChunks": "",
+        "chunk_output_type": "inline"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1653577476,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1653577476781,
+    "read_only": false,
+    "read_only_alternatives": []
+}
