@@ -10,11 +10,19 @@ Anthony, Sean. *Muhammad and the Empires of Faith.* Oakland, 2020, 1-82.\
 Crone, Patricia. *Slaves on Horses,* 18-26.\
 Hoyland, Robert. "Writing the Biography of the Prophet Muhammad: Problems and Solutions", *History Compass 5* (2007): 581-602.Kennedy, Hugh. *The Prophet and the Age of the Caliphates,* 29-81.
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a161b8263b137faac69fe4ff3a6fa17e5c3ed259
 Comments from Sarah and Mohammad added and substantially revised in August 2022
 Working on it in June 2023
 
 
+<<<<<<< HEAD
 ## Chapter 7. A Community of Jurists
+=======
+Chapter 7. A Community of Jurists
+>>>>>>> a161b8263b137faac69fe4ff3a6fa17e5c3ed259
 
 Aslisho Qurboniev
 
@@ -172,6 +180,7 @@ al-Warjalānī, Abū Zakariyāʼ, Kitāb siyar al-aʼimma wa-akhbārihim al-maʻ
 al-Warjalānī, Abū Zakariyāʾ, Chronique d’Abou Zakaria: Publiée pour la premiére fois, Émile Masqueray (tran.) (Algiers: Imprimerie de l’Association ouvière V. Aillaud et cie, 1878).
 ʿIyāḍ ibn Mūsā, Tartīb al-madārik wa-taqrīb al-masālik li-maʿrifat aʿlām madhab Mālik, Saʻīd Aḥmad Aʿrāb (ed.) (al-Rabāṭ: Wizārat al-Awqāf wa-al-Shuʼūn al-Islāmīyah, 1981).
 
+<<<<<<< HEAD
 **A Community of Jurists**
 
 By Aslisho Qurboniev
@@ -1373,4 +1382,6 @@ height="3.6930555555555555in"}.
 
 [^78]: Geary, *Phantoms of Remembrance,* 12.
 
+=======
+>>>>>>> a161b8263b137faac69fe4ff3a6fa17e5c3ed259
 
